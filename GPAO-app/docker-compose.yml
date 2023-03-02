@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: mysecretpassword
+    volumes:
+      - ./backend:/app
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/app
+    restart: always
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: mysecretpasswdocker
+      POSTGRES_USER: postgres
+      POSTGRES_DB: mydatabase

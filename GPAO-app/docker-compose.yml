@@ -1,6 +1,16 @@
 version: '3'
 
 services:
+  db:
+    image: postgres
+    restart: always 
+    environment:
+      POSTGRES_PASSWORD: mysecretpasswdocker
+      POSTGRES_USER: postgres
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+  
   backend:
     build:
       context: ./backend
@@ -10,7 +20,7 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/mydatabase
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mydatabase
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: mysecretpassword
     volumes:
@@ -27,10 +37,4 @@ services:
       - ./frontend:/app
     restart: always
 
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: mysecretpasswdocker
-      POSTGRES_USER: postgres
-      POSTGRES_DB: mydatabase
+

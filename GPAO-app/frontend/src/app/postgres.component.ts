@@ -14,11 +14,11 @@ export class PostgresComponent implements OnInit {
     ) { }
   
     ngOnInit() {
-        this.postToPostgres("test")
+        this.postToPostgres()
     }
   
-    postToPostgres(data: any) {
-      this.postgresService.postgres(data).subscribe(Response => {
+    postToPostgres() {
+      this.postgresService.postgres().subscribe(Response => {
         console.log("Response")
         console.log(Response)
         //TODO: Handle response

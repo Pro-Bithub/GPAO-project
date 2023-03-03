@@ -11,8 +11,8 @@ export class PostgresService {
     private http: HttpClient
   ) { }
 
-  postgres(data: any) {
-    return this.http.post('/api/postgres', data);
+  postgres() {
+    return this.http.get('/api/postgres');
   }
 
 }
